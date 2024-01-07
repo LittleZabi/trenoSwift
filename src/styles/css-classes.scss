@@ -1,0 +1,79 @@
+.btn{
+    background: var(--purple);
+    padding: 12px 23px;
+    border-radius: 7px;
+    font-weight: 600;
+    margin: 6px 0px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 350ms ease-in;
+    &:hover{
+        background: var(--dark-purple);
+    }
+}
+.badge{
+    background: var(--dark-blue);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 12px;
+    margin: 0 2px;
+}
+.tt-u{
+    text-transform: uppercase;
+}
+.txt-lt{
+    text-decoration: line-through;
+}
+.label{
+    background: black;
+    color: white;
+    padding: 6px 17px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 29px;
+    width: max-content;
+}
+.fs{
+    &11{font-size: 11px}
+    &12{font-size:12px}
+    &14{font-size:14px}
+    &16{font-size: 16px}
+    &18{font-size: 18px} 
+    &20{font-size: 20px}
+    &22{font-size: 22px}
+    &24{font-size: 24px}
+}
+.fw{
+    &4{font-weight: 400;}
+    &5{font-weight: 500;}
+    &6{font-weight: 600;}
+    &7{font-weight: 700;}
+    &8{font-weight: 800;}
+    &9{font-weight: 900;}
+}
+.c-danger{
+    color: #ff6464;
+}
+.page-size{
+    max-width: 1280px;
+}
+.df{
+    display: flex;
+}
+.jc{
+    justify-content: center;
+}
+.ac{
+    align-items: center;
+}
+.dfc{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
