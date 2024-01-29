@@ -1,4 +1,28 @@
-.btn{
+.wdh {
+    &-100 {
+        width: 100px;
+    }
+
+    &-50 {
+        width: 50px;
+    }
+}
+
+.bc {
+    &-black {
+        background: black;
+    }
+
+    &-red {
+        background: var(--red) !important;
+    }
+
+    &-white {
+        background: white;
+    }
+}
+
+.btn {
     background: var(--purple);
     padding: 12px 23px;
     border-radius: 7px;
@@ -10,11 +34,13 @@
     font-family: inherit;
     cursor: pointer;
     transition: background 350ms ease-in;
-    &:hover{
+
+    &:hover {
         background: var(--dark-purple);
     }
 }
-.badge{
+
+.badge {
     background: var(--dark-blue);
     color: white;
     padding: 3px 8px;
@@ -23,13 +49,22 @@
     font-size: 12px;
     margin: 0 2px;
 }
-.tt-u{
-    text-transform: uppercase;
+
+.tt- {
+    &u {
+        text-transform: uppercase;
+    }
+
+    &c {
+        text-transform: capitalize;
+    }
 }
-.txt-lt{
+
+.txt-lt {
     text-decoration: line-through;
 }
-.label{
+
+.label {
     background: black;
     color: white;
     padding: 6px 17px;
@@ -39,40 +74,88 @@
     border-radius: 29px;
     width: max-content;
 }
-.fs{
-    &11{font-size: 11px}
-    &12{font-size:12px}
-    &14{font-size:14px}
-    &16{font-size: 16px}
-    &18{font-size: 18px} 
-    &20{font-size: 20px}
-    &22{font-size: 22px}
-    &24{font-size: 24px}
+
+.fs {
+    &11 {
+        font-size: 11px
+    }
+
+    &12 {
+        font-size: 12px
+    }
+
+    &14 {
+        font-size: 14px
+    }
+
+    &16 {
+        font-size: 16px
+    }
+
+    &18 {
+        font-size: 18px
+    }
+
+    &20 {
+        font-size: 20px
+    }
+
+    &22 {
+        font-size: 22px
+    }
+
+    &24 {
+        font-size: 24px
+    }
 }
-.fw{
-    &4{font-weight: 400;}
-    &5{font-weight: 500;}
-    &6{font-weight: 600;}
-    &7{font-weight: 700;}
-    &8{font-weight: 800;}
-    &9{font-weight: 900;}
+
+.fw {
+    &4 {
+        font-weight: 400;
+    }
+
+    &5 {
+        font-weight: 500;
+    }
+
+    &6 {
+        font-weight: 600;
+    }
+
+    &7 {
+        font-weight: 700;
+    }
+
+    &8 {
+        font-weight: 800;
+    }
+
+    &9 {
+        font-weight: 900;
+    }
 }
-.c-danger{
+
+.c-danger {
     color: #ff6464;
 }
-.page-size{
+
+.page-size {
     max-width: 1280px;
 }
-.df{
+
+.df {
     display: flex;
 }
-.jc{
+
+.jc {
     justify-content: center;
 }
-.ac{
+
+.ac {
     align-items: center;
 }
-.dfc{
+
+.dfc {
     display: flex;
     justify-content: center;
     align-items: center;

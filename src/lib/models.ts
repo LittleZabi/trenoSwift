@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { getRandomChar } from './globals';
 mongoose.set('strictQuery', true);
 
 const AdminSchema = new mongoose.Schema({
@@ -9,52 +10,52 @@ const AdminSchema = new mongoose.Schema({
 	lastLogin: { type: String, require: false },
 	active: { type: Boolean, default: true }
 });
-const categoryTypesSchema = new mongoose.Schema(
+const departmentsSchema = new mongoose.Schema(
 	{
-		title: {type: String, required: true, default: 'general', unique: true},
+		title: {type: String, required: true, unique: true},
 		categories: {type: Number, default: 0},
-		description: {type: String, required: false }
+		image: {type: String, required: true},
+		description: {type: String, required: false },
+		slug: {type: String, required: true, unique: true}
 	},
 	{
 		timestamps: true
 	}
 )
-const ConfigurationSchema = new mongoose.Schema(
+const SettingsSchema = new mongoose.Schema(
 	{
-		website_name: { type: String, default: '_____' },
-		time_after_announcment_visible: { type: Number, default: 10000 },
-		new_arrivals_products_limit: {type: Object, default: {limit: 5, note: "This is most recent uploads product which are showing in some places like home page etc."}},
-		cat_types_limit: {type: Object, default: {limit: 6, note: "This is category types which is showing in home and other places."}},
-		popular_products_limit: {type: Object, default: {limit: 15, note: "This is popular products which is most selling products internationally."}},
-		categories_limit: {type: Object, default: {limit: 15, note: "This is categories list limit."}},
-		recommended_for_user_limit: {type: Object, default: {limit: 15, note: "This is recommended products limit for clients."}}
-		// items_per_page: { type: {limit: Number, note:String}, default: 25 },
-		// deviceViewHeaderTextLength: { type: Number, default: 5 },
-		// firmsAndFolderPerPage: { type: Number, default: 20 },
-		// showAnnouncement: { type: Boolean, default: true },
-		// latestBlogsLimit: { type: Number, default: 10 },
-		// maximumFilesAllowInImageTools: { type: Number, default: 30 },
-		// minimumFilesAllowInImageTools: { type: Number, default: 3 },
-		// worldActivitiesPostLimit: { type: Number, default: 15 },
-		// paginateButtonShow: { type: Number, default: 6 },
-		// blogsPagePostLimit: { type: Number, default: 20 },
-		// sideBarRandomPostsLength: { type: Number, default: 15 },
-		// mainNewArrivalsLimit: { type: Number, default: 10 },
-		// mainCatPerCollLimit: { type: Number, default: 10 },
-		// sideviewItemsPerColLimit: { type: Number, default: 4 },
-		// searchResultLimit: { type: Number, default: 5 },
-		// fullSearchResultLimits: { type: Number, default: 15 },
-		// fullSearchResultLimitsText: { type: Number, default: 25 },
-		// firmsRelatedCategoryLimit: { type: Number, default: 10 },
-		// modalRemovingTime: { type: Number, default: 300 },
-		// perPostCommentAllow: { type: Number, default: 5 },
-		// commentsLimit: { type: Number, default: 15 },
-		// cookiesOptions: {
-		// 	type: Object,
-		// 	default: { path: '/', httpOnly: true, secure: true, maxAge: 15552000 }
-		// },
-		// active: { type: Boolean, default: true },
-		// UserProfilePictureWidth: {type: Number, default: 320, required: true},
+		websiteName: { type: String, default: 'Sequel Blue' },
+		timeAfterAnnouncmentVisible: { type: Number, default: 10000 },
+		deviceViewHeaderTextLength: { type: Number, default: 5 },
+		firmsAndFolderPerPage: { type: Number, default: 20 },
+		showAnnouncement: { type: Boolean, default: true },
+		latestBlogsLimit: { type: Number, default: 10 },
+		maximumFilesAllowInImageTools: { type: Number, default: 30 },
+		minimumFilesAllowInImageTools: { type: Number, default: 3 },
+		worldActivitiesPostLimit: { type: Number, default: 15 },
+		paginateButtonShow: { type: Number, default: 6 },
+		blogsPagePostLimit: { type: Number, default: 20 },
+		sideBarRandomPostsLength: { type: Number, default: 15 },
+		mainNewArrivalsLimit: { type: Number, default: 10 },
+		mainCatPerCollLimit: { type: Number, default: 10 },
+		sideviewItemsPerColLimit: { type: Number, default: 4 },
+		searchResultLimit: { type: Number, default: 5 },
+		fullSearchResultLimits: { type: Number, default: 15 },
+		fullSearchResultLimitsText: { type: Number, default: 25 },
+		firmsRelatedCategoryLimit: { type: Number, default: 10 },
+		modalRemovingTime: { type: Number, default: 300 },
+		perPostCommentAllow: { type: Number, default: 5 },
+		commentsLimit: { type: Number, default: 15 },
+		cookiesOptions: {
+			type: Object,
+			default: { path: '/', httpOnly: true, secure: true, maxAge: 15552000 }
+		},
+		active: { type: Boolean, default: true },
+		oneTimeAdminLoginKey: {
+			type: String,
+			default: getRandomChar(100, {})
+		},
+		UserProfilePictureWidth: {type: Number, default: 320, required: true},
 	},
 	{
 		timestamps: true
@@ -71,7 +72,7 @@ const AnalyticsSchema = new mongoose.Schema({
 	firmwares: { type: Number, defult: 0 },
 	cat_firmwares: { type: Number, defult: 0 }
 });
-const AnnouncmentsSchema = new mongoose.Schema(
+const AnnouncementsSchema = new mongoose.Schema(
 	{
 		type: { type: String, require: true },
 		title: { type: String, require: true },
@@ -202,11 +203,27 @@ const smartSchema = new mongoose.Schema(
 		strict: false
 	}
 );
-
+const ConfigurationSchema = new mongoose.Schema(
+	{
+		website_name: { type: String, default: 'My New Website' },
+		time_after_announcment_visible: { type: Number, default: 10000 },
+		new_arrivals_products_limit: {type: Object, default: {limit: 5, note: "This is most recent uploads product which are showing in some places like home page etc."}},
+		cat_types_limit: {type: Object, default: {limit: 6, note: "This is category types which is showing in home and other places."}},
+		popular_products_limit: {type: Object, default: {limit: 15, note: "This is popular products which is most selling products internationally."}},
+		categories_limit: {type: Object, default: {limit: 15, note: "This is categories list limit."}},
+		recommended_for_user_limit: {type: Object, default: {limit: 15, note: "This is recommended products limit for clients."}},
+		UserProfilePictureWidth: {type: Number, default: 320, required: true},
+		paginateButtonShow: { type: Number, default: 6 },
+		itemsPerPage: { type: Number, default: 25 },
+	},
+	{
+		timestamps: true
+	}
+);
 const categoriesSchema = new mongoose.Schema(
 	{
 		category: { type: String, required: true},
-		type: { type: mongoose.Types.ObjectId, ref: 'category_types', required: true },
+		department: { type: String, ref: 'departments', required: true },
 		items: { type: Number, default: 0 },
 		image: { type: String, required: true, default: '/images/logos/category.svg' },
 		description: {type: String, required: false}
@@ -241,26 +258,13 @@ const blogsSchema = new mongoose.Schema(
 		strictQuery: true
 	}
 );
-export const blogsModel: any = mongoose.models.blogs || mongoose.model('blogs', blogsSchema);
 export const Categories: any =
 	mongoose.models.categories || mongoose.model('categories', categoriesSchema);
 export const Products: any =
 	mongoose.models.products || mongoose.model('products', productsSchema);
-export const smartModel: any =
-	mongoose.models.mobile_devices || mongoose.model('phones', smartSchema);
-export const reviewsModel: any =
-	mongoose.models.reviews || mongoose.model('reviews', reviewsSchema);
-export const visitorsModel: any =
-	mongoose.models.visitors || mongoose.model('visitors', visitorsSchema);
 export const Users: any = mongoose.models.users || mongoose.model('users', usersSchema);
-export const Firmwares: any =
-	mongoose.models.firmwares || mongoose.model('firmwares', firmwaresSchema);
-export const firmwareCategories: any =
-	mongoose.models.firmwares_categories || mongoose.model('firmwares_categories', firmCatSchema);
-export const Announcments: any =
-	mongoose.models.announcments || mongoose.model('announcments', AnnouncmentsSchema);
 export const Analytics: any =
 	mongoose.models.analytics || mongoose.model('analytics', AnalyticsSchema);
-export const Configurations: any = mongoose.models.configurations || mongoose.model('configurations', ConfigurationSchema);
+export const Configurations: any = mongoose.models.configurations || mongoose.model('configurations',  ConfigurationSchema);
 export const Admin: any = mongoose.models.admins || mongoose.model('admins', AdminSchema);
-export const CategoryTypes: any = mongoose.models.category_types || mongoose.model('category_types', categoryTypesSchema);
+export const Departments: any = mongoose.models.departments|| mongoose.model('departments', departmentsSchema);

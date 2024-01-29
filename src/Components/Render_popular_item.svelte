@@ -1,15 +1,18 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	import testImage from '../assets/test-image-3.jpg';
+	import { calcDiscount } from '$lib/globals';
+	export let item: any;
 </script>
 
 <section>
 	<div class="image">
-		<img src={testImage} alt="" />
+		<a href="/product/{item.slug}">
+			<img src={item.images} alt="" />
+		</a>
 	</div>
 	<div class="txt">
-		<div class="price fs22">
-			<sup>$</sup>25
+		<div class="price fs18">
+			<sup>$</sup>{calcDiscount(item.price, item.discount)}
 		</div>
 		<div class="icons">
 			<button>
@@ -21,14 +24,16 @@
 		</div>
 	</div>
 </section>
+
 <style lang="scss">
 	section {
-		min-width: 260px;
-		height: 392px;
+		min-width: 187px;
+		height: 248px;
 		position: relative;
 		border-radius: 18px;
+		background: white;
 		overflow: hidden;
-		margin: 3px 6px 12px;
+		margin: 3px 5px 10px;
 		& .image,
 		& .txt {
 			position: absolute;
@@ -43,21 +48,28 @@
 			align-items: center;
 			& .price {
 				background: var(--red);
-				padding: 6px 32px;
+				padding: 4px 10px;
 				height: max-content;
 				border-radius: 29px;
-				margin-left: 15px;
+				margin-left: 7px;
 				color: white;
 			}
 			& .icons {
 				margin-right: 14px;
+				cursor: pointer;
 				& button {
-					width: 40px;
-					height: 40px;
+					width: 32px;
+					height: 32px;
 					border-radius: 50%;
-					padding: 8px;
+					padding: 7px;
 					background: #ffffffda;
-					margin-right: 4px;
+					margin-right: 2px;
+					cursor: pointer;
+					transition: all 400ms;
+					&:hover {
+						background: black;
+						color: white;
+					}
 				}
 			}
 		}

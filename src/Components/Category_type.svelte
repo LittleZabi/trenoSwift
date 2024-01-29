@@ -1,63 +1,19 @@
-<!-- Rendering Category types Grid  -->
 <script lang="ts">
-	import testImage from '../assets/test-phones.jpg';
+	export let catTypes: any;
 </script>
 
 <div class="category-type">
-	<section>
-		<div class="image">
-			<img src={testImage} alt="view of flowers" />
-		</div>
-		<div class="txt">
-			<h3>Flowers</h3>
-			<a href="/">View All</a>
-		</div>
-	</section>
-	<section>
-		<div class="image">
-			<img src={testImage} alt="view of flowers" />
-		</div>
-		<div class="txt">
-			<h3>Flowers</h3>
-			<a href="/">View All</a>
-		</div>
-	</section>
-	<section>
-		<div class="image">
-			<img src={testImage} alt="view of flowers" />
-		</div>
-		<div class="txt">
-			<h3>Flowers</h3>
-			<a href="/">View All</a>
-		</div>
-	</section>
-	<section>
-		<div class="image">
-			<img src={testImage} alt="view of flowers" />
-		</div>
-		<div class="txt">
-			<h3>Flowers</h3>
-			<a href="/">View All</a>
-		</div>
-	</section>
-	<section>
-		<div class="image">
-			<img src={testImage} alt="view of flowers" />
-		</div>
-		<div class="txt">
-			<h3>Flowers</h3>
-			<a href="/">View All</a>
-		</div>
-	</section>
-	<section>
-		<div class="image">
-			<img src={testImage} alt="view of flowers" />
-		</div>
-		<div class="txt">
-			<h3 class="fw7">Flowers</h3>
-			<a href="/" class="fs16 fw6">View All</a>
-		</div>
-	</section>
+	{#each catTypes as type_}
+		<section>
+			<div class="image">
+				<img src={type_.image} alt="view of flowers" />
+			</div>
+			<div class="txt">
+				<h3>{type_.title}</h3>
+				<a href="/">View All</a>
+			</div>
+		</section>
+	{/each}
 </div>
 
 <style lang="scss">
@@ -69,9 +25,8 @@
 		& section {
 			position: relative;
 			width: 374px;
-			height: 241px;
+			height: 320px;
 			margin: 0px;
-			background: blue;
 			& img {
 				position: absolute;
 				width: 100%;
@@ -79,16 +34,26 @@
 				object-fit: cover;
 			}
 			& .txt {
+				max-width: 305px;
 				position: absolute;
 				z-index: 1;
 				bottom: 30px;
 				left: 30px;
-				& h3{
-					font-size: 25px;
+				background: rgb(0 0 0 / 61%);
+				padding: 3px 13px;
+				text-transform: uppercase;
+				border-radius: 4px;
+				backdrop-filter: blur(4px);
+				color: white;
+				& h3 {
+					font-size: 18px;
+					font-weight: 400;
 				}
-				& a{
+				& a {
 					cursor: pointer;
-					&:hover{
+					font-size: 12px;
+					font-weight: 400;
+					&:hover {
 						text-decoration: underline;
 					}
 				}

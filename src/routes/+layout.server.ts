@@ -1,9 +1,10 @@
-import { getSettings } from "$lib";
+import { getConfig } from "$lib";
 import { parse } from "$lib/globals";
-import type { PageServerLoad } from "./$types";
+import { configProjection } from "$lib/vars";
 
-export const load = (async () => {
+export const load = async ({ url }) => {
     return {
-        config: parse(await getSettings())
-    } 
-}) satisfies PageServerLoad;
+        config: parse(await getConfig(configProjection({ _id: 0 }))),
+        url: url.pathname
+    }
+};

@@ -1,9 +1,10 @@
 const PUBLIC_ENV = 'dev';
-import axios from 'axios';
 export const parse = (json: {} | []) => {
 	if (json) return JSON.parse(JSON.stringify(json));
 	else return json;
 };
+
+export const calcDiscount = (price: number, discount: number) => (price - price * (discount * 0.01)).toFixed(2)
 
 export const getPagination = (cookies: any, url: any) => {
 	let page = Number(url.searchParams.get('p')) ?? 0;
@@ -106,37 +107,37 @@ export const life = (__time__: string) => {
 				curTime >= 2 && curTime < 12
 					? 'morning'
 					: curTime >= 12 && curTime <= 18
-					? 'afternoon'
-					: 'evening';
+						? 'afternoon'
+						: 'evening';
 			a = `Good ${a}!`;
 			b =
 				curTime >= 0 && curTime < 1
 					? 'Midnight'
 					: curTime >= 1 && curTime < 2
-					? 'Middle of the night'
-					: curTime >= 2 && curTime < 6
-					? 'Early morning'
-					: curTime >= 6 && curTime < 8
-					? 'Dawn'
-					: curTime >= 8 && curTime < 9
-					? 'Morning'
-					: curTime >= 9 && curTime < 12
-					? 'Late morning'
-					: curTime >= 12 && curTime < 13
-					? 'Noon'
-					: curTime >= 13 && curTime < 14
-					? 'Afternoon'
-					: curTime >= 14 && curTime < 17
-					? 'Late afternoon'
-					: curTime >= 17 && curTime < 18
-					? 'Dusk'
-					: curTime >= 18 && curTime < 19
-					? 'Early evening'
-					: curTime >= 19 && curTime < 21
-					? 'Evening'
-					: curTime >= 21 && curTime < 23
-					? 'Late evening'
-					: 'Night';
+						? 'Middle of the night'
+						: curTime >= 2 && curTime < 6
+							? 'Early morning'
+							: curTime >= 6 && curTime < 8
+								? 'Dawn'
+								: curTime >= 8 && curTime < 9
+									? 'Morning'
+									: curTime >= 9 && curTime < 12
+										? 'Late morning'
+										: curTime >= 12 && curTime < 13
+											? 'Noon'
+											: curTime >= 13 && curTime < 14
+												? 'Afternoon'
+												: curTime >= 14 && curTime < 17
+													? 'Late afternoon'
+													: curTime >= 17 && curTime < 18
+														? 'Dusk'
+														: curTime >= 18 && curTime < 19
+															? 'Early evening'
+															: curTime >= 19 && curTime < 21
+																? 'Evening'
+																: curTime >= 21 && curTime < 23
+																	? 'Late evening'
+																	: 'Night';
 			return [a, b];
 		}
 	};
@@ -163,8 +164,8 @@ export const numberFormat = (__num__: number): string => {
 		return __num__ >= 1000000
 			? (__num__ / 1000000).toFixed(1) + 'M'
 			: __num__ >= 1000
-			? (__num__ / 1000).toFixed(1) + 'k'
-			: __num__.toString();
+				? (__num__ / 1000).toFixed(1) + 'k'
+				: __num__.toString();
 	else return '0';
 };
 
@@ -174,45 +175,51 @@ export const staticBody = (visibility: Boolean) => {
 		else document.querySelector('body')?.classList.remove('modal-open');
 	}
 };
-
-export const setCookies: (
-	name: string,
-	value: string,
-	options?: {
-		expires?: number | Date;
-		maxAge?: number;
-		path?: string;
-		domain?: string;
-		secure?: boolean;
-		sameSite?: string;
-	}
-) => void = (name, value, options) => {
-	options = options ? options : {};
-	if (options?.expires) options.expires = new Date(Date.now() + 86400000 * Number(options.expires));
-	options.path = options.path ? options.path : '/';
-	options.secure = options.secure ? options.secure : PUBLIC_ENV === 'dev' ? false : true;
-	let cookies = `${name}=${value}`;
-	for (const option in options) {
-		if (options.hasOwnProperty(option)) {
-			if (option === 'maxAge') cookies += `;max-age=${options[option]}`;
-			// @ts-ignore
-			else cookies += `;${option}=${options[option]}`;
+export const Cookies: {
+	set: (
+		name: string,
+		value: string | object,
+		options?: {
+			expires?: number | Date;
+			maxAge?: number;
+			path?: string;
+			domain?: string;
+			secure?: boolean;
+			sameSite?: string;
 		}
+	) => void,
+	get: (name: string) => string | null,
+	delete: (name: string) => void
+} = {
+	set: (name, value, options) => {
+		if (typeof value === 'object') value = JSON.stringify(value)
+		options = options ? options : {};
+		if (options?.expires) options.expires = new Date(Date.now() + 86400000 * Number(options.expires));
+		options.path = options.path ? options.path : '/';
+		options.secure = options.secure ? options.secure : PUBLIC_ENV === 'dev' ? false : true;
+		let cookies = `${name}=${value}`;
+		for (const option in options) {
+			if (options.hasOwnProperty(option)) {
+				if (option === 'maxAge') cookies += `;max-age=${options[option]}`;
+				// @ts-ignore
+				else cookies += `;${option}=${options[option]}`;
+			}
+		}
+		document.cookie = cookies;
+	},
+	get: (name) => {
+		let cookies = document.cookie.split(';');
+		let value = null;
+		for (const c of cookies) {
+			let [n, v] = c.split('=');
+			if (n.trim() === name) return decodeURIComponent(v);
+		}
+		return value;
+	},
+	delete: (name) => {
+		document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 	}
-	document.cookie = cookies;
-};
-export const getCookies = (name: string) => {
-	let cookies = document.cookie.split(';');
-	let value = null;
-	for (const c of cookies) {
-		let [n, v] = c.split('=');
-		if (n === name) return decodeURIComponent(v);
-	}
-	return value;
-};
-
-
-
+}
 const rand_options = {
 	numbers: true,
 	symbols: false,

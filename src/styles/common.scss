@@ -8,73 +8,158 @@ body {
 	// &.modal-open {
 	// 	overflow: hidden;
 	// }
-	scrollbar-width: thin; 
-	scrollbar-color: black #e91e63; 
+	scrollbar-width: thin;
+	scrollbar-color: black #e91e63;
+	overflow-x: hidden;
 }
+
 * {
 	::-webkit-scrollbar {
-		width: 10px;
-		height: 10px;
-	  }
-	  
-	  ::-webkit-scrollbar-thumb {
+		width: 4px;
+		height: 6px;
+	}
+
+	::-webkit-scrollbar-thumb {
 		background-color: black;
-	  }
-	  
-	  ::-webkit-scrollbar-track {
-		background-color: #e91e63;
-	  }
+	}
+
+	::-webkit-scrollbar-track {
+		background-color: #ffff00;
+	}
 }
+
+.quantity button svg {
+	width: 25px;
+	height: 25px;
+}
+
+.wire {
+	width: 100%;
+	height: 1px;
+	background: #70707049;
+	display: block;
+}
+
 #main-container {
 	display: grid;
 	grid-template-areas: 'header' 'main' 'footer';
 	grid-template-rows: auto 1fr auto;
 	min-height: 100vh;
 }
+
 header {
 	grid-area: header;
 }
+
 main {
 	grid-area: main;
 	min-height: 100%;
 	width: 100%;
 }
+
 footer {
 	grid-area: footer;
 }
-a{
+
+a {
 	text-decoration: none;
 	color: inherit;
+	transition: 300ms ease-in;
 }
-input, textarea, button, select{
+
+input,
+textarea,
+button,
+select {
 	outline: none;
 	font-family: inherit;
+	transition: all 300ms ease-in;
 }
-h1,h2,h3,h4,h5,h6, p{
-	padding: 0;margin:0;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	padding: 0;
+	margin: 0;
 }
-button{
-	border:none;
+
+button {
+	border: none;
+	cursor: pointer;
 }
-ul{
-	padding: 0;margin:0;
-	& li{
-		list-style: none;
-	}
+
+ul {
+	padding: 0;
+	margin: 0;
 }
-svg{
-	&.nav-chev{
+
+svg {
+	&.nav-chev {
 		margin-bottom: -4px;
 	}
-	&.badge-eye{
+
+	&.badge-eye {
 		margin-left: 3px;
 		width: 20px;
 		height: 20px;
 	}
 }
-.lst-icn{
-	& svg{
-		width: 33px;
-		height: 33px;;
+
+.prices-container {
+	display: flex;
+	align-items: center;
+	margin-top: 18px;
+	margin-bottom: 13px;
+
+	& .dscnt {
+		margin-left: 16px;
+	}
+
+	& h1 {
+		font-size: 28px;
+	}
+
+	& h4 {
+		color: #b9b7b7;
+		margin-right: 10px;
+	}
+}
+
+#button-list button {
+
+	&.active,
+	&:hover {
+		border-color: white !important;
+		animation: rotateB 3.5s linear forwards infinite;
+
+		@keyframes rotateB {
+			from {
+				transform: rotate(0deg);
+			}
+
+			to {
+				transform: rotate(360deg);
+			}
+		}
+	}
+}
+
+#product_wrap {
+	& section {
+		transition: all 800ms cubic-bezier(0.27, 0.37, 0, 1.72);
+
+		&.init {
+			transform: translateX(300px);
+		}
+
+		&.active {
+			opacity: 1;
+			visibility: visible;
+			left: 0;
+		}
 	}
 }

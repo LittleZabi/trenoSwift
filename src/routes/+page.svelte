@@ -2,105 +2,25 @@
 	import Icon from '@iconify/svelte';
 	import topCurve from '../assets/top-view-curve.svg';
 	import topImage from '../assets/top-view-image-1.png';
-	import testImage from '../assets/test-image.png';
 	import testImage1 from '../assets/test-phone-1.png';
-	import Stars from '../Components/Stars.svelte';
-	import StarFill from '../assets/star-full.svg';
 	import CategoryType from '../Components/Category_type.svelte';
+	import ProductSlider from '../Components/Product_Slider.svelte';
 	import ScrollingElements from '../Components/Scrolling_elements.svelte';
 	import RenderPopularItem from '../Components/Render_popular_item.svelte';
 	import RenderCats from '../Components/Render_cats.svelte';
 	import RenderRcmndPrdct from '../Components/Render_rcmnd_prdct.svelte';
+	import Middle from '../Components/Middle.svelte';
 	import type { PageData } from './$types';
-	import { numberFormat } from '$lib/globals';
-	export let data:PageData;
-	console.log(data)
+
+	export let data: PageData;
 </script>
 
 <div class="home-view">
-	<div class="top-view">
-		<div class="inner-view">
-			<div class="bg-image">
-				<img src={topCurve} alt="" />
-			</div>
-			<div class="mid">
-				<h1>Discover Endless Shopping Delights</h1>
-				<p>Your Ultimate Online Marketplace Awaits!</p>
-			</div>
-			<div class="right">
-				<img src={topImage} alt="" />
-			</div>
-		</div>
-	</div>
-	<div class="page-size home-most-recent">
-		<div class="items">
-			{#each data.productList as item}
-			<section>
-				<div class="left">
-					<img src={item.images} alt="{item.title}" />
-				</div>
-				<div class="right">
-					<div class="label new-arrival">New Arrivals</div>
-					<div class="category fs14 fw5 tt-u">PHONE - {item.cat}</div>
-					<h2 class="fs22">{item.title}</h2>
-					<div class="rating">
-						<Stars Rating={item.rating} />
-						<span class="badge">120 Reviews</span>
-					</div>
-					<div class="prices">
-						<h4 class="txt-lt fs14">Price $512</h4>
-						<h1 class="fw7">USD $249</h1>
-						<h5 class="dscnt fs14 c-danger">-30% discount</h5>
-					</div>
-					<div class="df bdgs">
-						<span class="badge fs11 dfc">
-							<img src={StarFill} alt="star filled" />
-							<span>{item.rating}</span>
-						</span>
-						<span class="badge dfc">
-							<span>{numberFormat(item.views)}</span>
-							<Icon class="badge-eye" icon="iconoir:eye" />
-						</span>					</div>
-					<button class="btn"> Add To Cart </button>
-				</div>
-			</section>
-			{/each}
-			<section>
-				<div class="left">
-					<img src={testImage} alt="" />
-				</div>
-				<div class="right">
-					<div class="label new-arrival">New Arrivals</div>
-					<div class="category fs14 fw5">PHONE - SAMSUNG</div>
-					<h2 class="fs22">Samsung Galaxy - note 8</h2>
-					<div class="rating">
-						<Stars Rating={3.5} />
-						<span class="badge">120 Reviews</span>
-					</div>
-					<div class="prices">
-						<h4 class="txt-lt fs14">Price $512</h4>
-						<h1 class="fw7">USD $249</h1>
-						<h5 class="dscnt fs14 c-danger">-30% discount</h5>
-					</div>
-					<div class="df bdgs">
-						<span class="badge fs11 dfc">
-							<img src={StarFill} alt="star filled" />
-							<span>3.5</span>
-						</span>
-						<span class="badge dfc">
-							<span>4k</span>
-							<Icon class="badge-eye" icon="iconoir:eye" />
-						</span>
-					</div>
-					<button class="btn"> Add To Cart </button>
-				</div>
-			</section>
-		</div>
-	</div>
-
+	<Middle />
+	<ProductSlider items={data.productList} />
 	<div class="home-wrap">
 		<div class="page-size category-type">
-			<CategoryType />
+			<CategoryType catTypes={data.catTypes} />
 		</div>
 		<div class="custom-element">
 			<div class="custom-container">
@@ -123,37 +43,28 @@
 		</div>
 		<div class="pplr-prdct">
 			<ScrollingElements title={'Popular products in Apparel Internationally'}>
-				<RenderPopularItem />
-				<RenderPopularItem />
-				<RenderPopularItem />
-				<RenderPopularItem />
-				<RenderPopularItem />
-				<RenderPopularItem />
-				<RenderPopularItem />
+				{#each data.getPopularItems as item}
+					<RenderPopularItem {item} />
+				{/each}
 			</ScrollingElements>
 		</div>
 		<div class="ct-typ">
 			<ScrollingElements>
-				<RenderCats />
-				<RenderCats />
-				<RenderCats />
-				<RenderCats />
-				<RenderCats />
-				<RenderCats />
-				<RenderCats />
-				<RenderCats />
+				{#each data.getCategories as cats}
+					<RenderCats {cats} />
+				{/each}
 			</ScrollingElements>
 		</div>
 		<div class="pt-lst">
-			<ScrollingElements title={"Recommended Products for you."}>
-				<RenderRcmndPrdct/>
-				<RenderRcmndPrdct/>
-				<RenderRcmndPrdct/>
-				<RenderRcmndPrdct/>
-				<RenderRcmndPrdct/>
-				<RenderRcmndPrdct/>
-				<RenderRcmndPrdct/>
-				<RenderRcmndPrdct/>
+			<ScrollingElements title={'Recommended Products for you.'}>
+				<RenderRcmndPrdct />
+				<RenderRcmndPrdct />
+				<RenderRcmndPrdct />
+				<RenderRcmndPrdct />
+				<RenderRcmndPrdct />
+				<RenderRcmndPrdct />
+				<RenderRcmndPrdct />
+				<RenderRcmndPrdct />
 			</ScrollingElements>
 		</div>
 	</div>
@@ -170,11 +81,11 @@
 		background: var(--secondary-bg);
 	}
 	.custom-element {
-		.custom-container{
+		.custom-container {
 			background: #dbffd5;
 		}
 		.custom-wrap {
-			margin:auto;
+			margin: auto;
 			width: 100%;
 			display: flex;
 			justify-content: space-between;
@@ -213,90 +124,19 @@
 		}
 	}
 	.home-wrap {
-		margin: auto;
-		background: var(--bg-color);
-		margin-top: 40px;
+		margin: 40px auto auto;
 		border-radius: 6px;
 	}
 	.category-type {
-		margin: auto;
 		background: white;
 		padding-top: 20px;
-		margin-bottom: 20px;
+		margin: auto auto 20px;
 	}
-	.home-most-recent {
-		margin-top: -5px;
-		.items {
-			display: flex;
-		}
-		margin: auto;
-		& section {
-			margin: 0 30px;
-			background: linear-gradient(92deg, white, white, #ffffff7a);
-			display: flex;
-			box-shadow: 5px 9px 11px rgba(0, 0, 0, 0.0901960784);
-			width: max-content;
-			max-width: 540px;
-			min-width: 540px;
-			border-radius: 16px;
-			padding: 60px 30px;
-			backdrop-filter: blur(30px);
-			& .btn {
-				margin-top: 20px;
-			}
-			& .bdgs {
-				& img {
-					margin-right: 3px;
-					width: 14px;
-					height: 14px;
-				}
-			}
-			& .prices {
-				display: flex;
-				align-items: center;
-				margin-top: 18px;
-				margin-bottom: 13px;
-				& .dscnt {
-					margin-left: 16px;
-				}
-				& h1 {
-					font-size: 28px;
-				}
-				& h4 {
-					color: #b9b7b7;
-					margin-right: 10px;
-				}
-			}
-			& .rating {
-				display: flex;
-				margin-top: 6px;
-				& span {
-					margin-left: 10px;
-				}
-			}
-			& h2 {
-				margin-top: 6px;
-				text-transform: capitalize;
-			}
-			& .category {
-				margin-top: 20px;
-			}
-			& .right {
-				margin-left: 8px;
-				margin-top: 10px;
-			}
-			& .left {
-				& img {
-					width: 160px;
-					max-height: 280px;
-					object-fit: cover;
-				}
-			}
-		}
-	}
+
 	.home-view {
 		margin: auto;
 		& .top-view {
+			margin-top: -70px;
 			.bg-image {
 				position: absolute;
 				top: 70px;
@@ -336,6 +176,24 @@
 					width: 525px;
 				}
 			}
+		}
+	}
+	@media (max-width: 1600px) {
+		.home-view {
+			.top-view {
+				& .bg-image {
+					& img {
+						width: 100%;
+						height: 700px;
+						object-fit: cover;
+					}
+				}
+			}
+		}
+	}
+	@media (max-width: 992px) {
+		.home-most-recent .items {
+			grid-template-columns: repeat(1, 1fr);
 		}
 	}
 </style>
